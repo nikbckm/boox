@@ -20,7 +20,6 @@
 		}
 		body {
 			padding: 10%;
-
 		}
 		}
 	</style>
@@ -29,8 +28,9 @@
 
 <body>
 	<h1>Boox Datenbank</h1>
-	<a type="button" class="btn btn-success" href="index.php?abc_sort=true">Nach Name ABC ordnen</button>
-	<a type="button" class="btn btn-success" href="index.php?id_sort=true">Nach ID ordnen</button>
+	<a href="index.php?abc_sort=true" class="btn btn-success" role="button">Nach Name ABC sortieren</a>
+	<a href="index.php?id_sort=true" class="btn btn-success" role="button">Nach ID sortieren</a>
+	<a href="index.php?katzenbaby=true" class="btn btn-success" role="button">Katzenbabies</a>
 	<table class="table table-striped">
 			<th>id</th>
 			<th>name</th>
@@ -38,6 +38,8 @@
 			<th>password</th>
 			
 			<?php
+				
+				
 				if (isset($_GET['abc_sort'])) {
 					$stmt = "SELECT * FROM `user` ORDER BY name ASC";
 						$result = $link->query($stmt);
@@ -49,8 +51,10 @@
 							echo "<td>" . $row[3] . "</td>\n";
 							echo "<tr>\n";
 						}
-				} else if (isset($_GET['id_sort'])) {
-					$stmt = "SELECT * FROM `user` ORDER BY id ASC";
+				} 
+				
+				else if (isset($_GET['id_sort'])) {
+						$stmt = "SELECT * FROM `user` ORDER BY id ASC";
 						$result = $link->query($stmt);
 						while ($row = mysqli_fetch_row($result)){
 							echo "<tr>\n";
@@ -59,19 +63,27 @@
 							echo "<td>" . $row[2] . "</td>\n";
 							echo "<td>" . $row[3] . "</td>\n";
 							echo "<tr>\n";
-						}
-				} else {
-						$stmt = "SELECT * FROM `user`";
-						$result = $link->query($stmt);
-						while ($row = mysqli_fetch_row($result)){
+				} 
+				
+				if (isset($_GET['katzenbaby'])) {
 							echo "<tr>\n";
-							echo "<td>" . $row[0] . "</td>\n";
-							echo "<td>" . $row[1] . "</td>\n";
-							echo "<td>" . $row[2] . "</td>\n";
-							echo "<td>" . $row[3] . "</td>\n";
+							echo "<td>Katzenbaby</td>";
 							echo "<tr>\n";
-						}
+							}
 				}
+				else {
+					$stmt = "SELECT * FROM `user`";
+					$result = $link->query($stmt);
+					while ($row = mysqli_fetch_row($result)){
+							echo "<tr>\n";
+							echo "<td>" . $row[0] . "</td>\n";
+							echo "<td>" . $row[1] . "</td>\n";
+							echo "<td>" . $row[2] . "</td>\n";
+							echo "<td>" . $row[3] . "</td>\n";
+							echo "<tr>\n";
+				}
+				}
+				
 										
 			?>
 			
